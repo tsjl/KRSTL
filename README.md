@@ -1,3 +1,6 @@
+KRSTL:n eli Kirjastoreitin sähköisen tehtävälomakkeen kotisivu ja muuta tietoa löytyy osoitteesta:
+http://s.iki.fi/krstl/
+
 Kirjastoreitin lomakesoftan dokumentaatiota käytön ja mahdollisten myöhemmin ilmenevien muutostarpeiden kannalta. Olemme päätyneet tämän julkaisemiseen kaikkien saataville, siitäkin huolimatta, ettei kyseessä ole mikään loppunasti viilattu huippuvaativa taidonnäyte, koska tästä ei kuitenkaan muodostuisi helpolla myytäväksi asti hyödynnettävää tuotetta mutta tälle kuitenkin saattaisi olla käyttöä ja tarvetta muuallakin.
 
 

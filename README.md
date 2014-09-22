@@ -1,3 +1,9 @@
+This page will be soon translated to English.
+
+As well as the code and the comments within it.
+
+*****
+
 KRSTL:n eli Kirjastoreitin sähköisen tehtävälomakkeen kotisivu ja muuta tietoa löytyy osoitteesta:
 http://s.iki.fi/krstl/
 

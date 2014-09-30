@@ -6,19 +6,28 @@
 		<title>KRSTL depends on Javascript</title>
 		<script>
 var oldHash = ""
+// variable for storing the answers of chosen practice form
 var vastaukset
+// datastructure that contains groups of practices, titles of the groups, names of the practices, titles of the practices, id's of the practices, questions and answers.
 var otsikot = [
 	{
+		// name of the first group
 		otsikko: "Collection of practices for small children",
+		// the practices in the first group
 		"lomakkeet": [
 			{
+				// the name of the practice shown in the index
 				lomake: "Practice 1",
+				// the name of the practice shown as a header
 				otsikko: "For small children<br>Serie of questions A",
-				/* BE SURE THAT VARIABLE llid BELLOW IS UNIQUE. It is used in links and address. */
+				/* An id of the practice. MAKE SURE THAT VARIABLE llid BELLOW IS UNIQUE. It is used in links and address. */
 				llid: "sc_a",
+				// collection of the questions and answers
 				"kysymykset": [
 					{
+						// the first question
 						kysymys: "What is the name of the dog called Jesse?",
+						// the asnwer of the first question stored as a RE matchstring
 						vastaus: /^\s*Jesse\s*$/i
 					},
 					{
@@ -176,24 +185,22 @@ input[type='text'] {
 }
 </style>
 <script>
-/* Alapuolinen vastaavaan merkintään asti leikattu ja liimattu siistimättä ja sellaisenaan aiemmasta versiosta */
 
 var DEBUG = false;
 var DEBUGStr;
 if (DEBUGStr == undefined) { 
-	if (DEBUG) DEBUGStr = "Tähän kertyy debuggi\n";
-	else DEBUGStr ="Debug pois käytöstä";
+	if (DEBUG) DEBUGStr = "Debug will be collected to this var\n";
+	else DEBUGStr ="Debug is turned of";
 }
 
 function DBS(str) {
-	/* Apufunktio, jolla debuggia kerätään. Syö parametrina tekstiä, tai jotain
-	mikä on automaattisesti muutettavissa tekstiksi. Palauttaa saamansa asian
-	sellaisenaan, jotta tätä voi kutsua vaikkapa alert(DBS("foo")); -muodossa.
+	/* DBS is a helper function that is used to collect debug information. It takes text or something that can be automatically converted to text by javascript as a parameter. Returns the same text unmodified to make it possible to call this function like alert(DBS("foo"));
 	
-	Ei kerää saamaansa talteen, jos globaali muuttuja DEBUG on false; */
+	Does not store the text if Debug is turned of.
+	*/
 	if (DEBUG) {
 		DEBUGStr += "" + str + "\n";
-		/* IE:ssä console-olio on olemassa vasta devikilkkeiden käynnistämisen jälkeen tabikohtaisesti */
+		/* Fix for IE. IE fails if Debug is on and development console has not been switched on */
 		if (typeof console != "undefined") {
 			console.log(str);
 		}
@@ -532,7 +539,7 @@ function loytyykoLomake(id) {
 		</script>
 	</head>
 	<body onLoad="kont()" onhashchange="hashChange()">
-		<img class="alkukuva" src="omalogosi.jpg" />
+		<img class="alkukuva" src="your_logo.jpg" />
 		<noscript>This software can not be run without Javascript.</noscript>
 		<h1 id="otsikko"></h1>
 		<div id="ohje" class="ohje">
@@ -545,7 +552,7 @@ function loytyykoLomake(id) {
 		</div>
 		<div id="koepaikka">
 		</div>
-		<img class="loppukuva" src="oma_logosi.jpg" />
+		<img class="loppukuva" src="your_logo.jpg" />
 		<div class="footer">
 			<p>
 				<!-- Change your contact information bellow. -->

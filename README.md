@@ -19,9 +19,6 @@ If you modify this software and make it somewhat better we kindly ask you to inf
 
 We except majority of the use of the software to be done via mobile phones. We have tried to keep this usable in wide range of different kind of devices even in desktop and laptop computers.
 
-Käyttö, asennus, kysymykset ja vastaukset
-*****************************************
-
 *****
 
 KRSTL:n eli Kirjastoreitin sähköisen tehtävälomakkeen kotisivu ja muuta tietoa löytyy osoitteesta:

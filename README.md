@@ -1,6 +1,26 @@
-This page will be soon translated to English.
+Version in Finnish can be found at the bottom of this file.
+Suomenkielinen versio löytyy englanninkielisen tekstin jälkeen.
 
-As well as the code and the comments within it.
+*****
+The homepage of KRSTL is located http://s.iki.fi/krstl/ .
+
+This file contains hints about how to use, deploy and develop KRSTL.
+
+We have decided to publish this piece of software to publicly available. Althought it is not highly polished up it can be useful. And it probably not could be sold.
+
+KRSTL generally and some reasons for the choices we made
+********************************************************
+
+KRSTL software is published with GNU AGPLv3 open source license. Other licensing models might also be possible, ask.
+
+And remember. If you think some of the decisions we made are bad you can always remake those decisions and rewrite the software accordingly. We had quite tight schedule and we were unable to use any kind of server side logic. The latter is actually the reason compelled us to implement everything on the client side. We also had other reasons to use mainly client side. We had no use for saving the answers nowhere but on the screen of the web browser.
+
+If you modify this software and make it somewhat better we kindly ask you to inform us. We and other users of this software would be thankful.
+
+We except majority of the use of the software to be done via mobile phones. We have tried to keep this usable in wide range of different kind of devices even in desktop and laptop computers.
+
+Käyttö, asennus, kysymykset ja vastaukset
+*****************************************
 
 *****
 

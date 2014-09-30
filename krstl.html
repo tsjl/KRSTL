@@ -209,8 +209,8 @@ function DBS(str) {
 }
 
 function naytaDebug(obj) {
-	/* Apufunktio, jolta käytetään kerätyn debug-tiedon näyttämiseen */
-	/* BETTERME vois poistaa tai korvata paremmalla, tuotannossa tarpeeton */
+	/* This function is used to show the collected debug information */
+	/* BETTERME should be replaced with better or removed. This should be useless in production */
 	try {
 		var elem;
 		elem = document.getElementById("debugTahan");
@@ -218,12 +218,13 @@ function naytaDebug(obj) {
 			elem.innerHTML=DEBUGStr;
 		} else {
 			var str;
-			str = "Debugin paikka kadoksissa, tätä ei pitäisi tapahtua, mutta jostain syystä kuitenkin tapahtui. Pahoittelut, mutta tässä debug kuitenkin näytille:\n" + DEBUGStr
+			str = "The place used to show the debug is missing. This should not happend. Anyway in this situation we will show the debug in this allert window. the debug is bellow:\n" + DEBUGStr
 			alert(str);
 		}
 	} catch (err) {
 		alert("errori: " + err);
 	}
+	// let's return false and prevent reloading of the page
 	return false;
 }
 

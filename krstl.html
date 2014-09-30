@@ -3,110 +3,66 @@
 	<head>
 		<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-		<title>Kirjareitti, vaatii Javascriptin</title>
+		<title>KRSTL depends on Javascript</title>
 		<script>
 var oldHash = ""
 var vastaukset
 var otsikot = [
 	{
-		otsikko: "Esimerkkiotsikko",
+		otsikko: "Collection of practices for small children",
 		"lomakkeet": [
 			{
-				lomake: "Esimerkkikysymyssarja A",
-				otsikko: "Esimerkkitehtäviä alakoululaisille<br>Kysymyssarja A",
-				/* HUOM llid:n on oltava uniikki tunniste yksittäiselle lomakkeelle. Sitä käytetään linkeissä ja lomakkeen osoitteessa */
-				llid: "ak_a",
+				lomake: "Practice 1",
+				otsikko: "For small children<br>Serie of questions A",
+				/* BE SURE THAT VARIABLE llid BELLOW IS UNIQUE. It is used in links and address. */
+				llid: "sc_a",
 				"kysymykset": [
 					{
-						kysymys: "Merja ja Marvi Jalo supersuositun kirjasarjan pääosassa on koira. Mikä on koiran nimi?",
+						kysymys: "What is the name of the dog called Jesse?",
 						vastaus: /^\s*Jesse\s*$/i
 					},
 					{
-						kysymys: "Kuka on kirjoittanut kirjan Rakastunut krokotiili?",
-						vastaus: /^\s*(Hannu\s+Hirvonen|Hirvo[sn]en\,?\s+Hannu)\s*$/i
+						kysymys: "Who wrote the books written by William Shakespeare?",
+						vastaus: /^\s*(William\s+Shakespeare|Shakespeare\,?\s+William)\s*$/i
 					},
 					{
-						kysymys: "Anneli Kanto on kirjoittanut kirjasarjan FC Tytsyt -jalkapallojoukkueesta. Sarjaan kuuluu myös kirja Pusu ja pokaali. Mikä on kirjasarjan nimi?",
-						vastaus: /^\s*Futistytt[öo]\s*$/i
-					},
-					{
-						kysymys: "Väinämö Kontiainen seikkailee Katri Tapolan kirjoittamissa kirjoissa. Mitä urheilulajia hän harrastaa kirjassa Väinämö sisäkentillä?",
-						vastaus: /^\s*Koripallo[a]?\s*$/i
-					},
-					{
-						kysymys: "Mistä aiheesta kertovia kirjoja kuuluu luokkaan 55.4?",
-						vastaus: /^\s*Dinosauruks(et|ista)\s*$/i
-					},
-					{
-						kysymys: 'Minkä värinen kansi on Måns Gahrtonin kirjoittamassa kirjassa "Eva ja Adam Ensi silmäyksellä"?',
-						vastaus: /^\s*Vihre[äa]\s*$/i
+						kysymys: "How many books are there in a trilogy?",
+						vastaus: /^\s*(Three|3)\s*$/i
 					},
 				]
 			},
 			{
-				lomake: "Esimerkkikysymyssarja B",
-				otsikko: "Esimerkkitehtäviä alakoululaisille<br>Kysymyssarja B",
-				llid: "ak_b",
+				lomake: "Practice 2",
+				otsikko: "For small children<br>Serie of questions b",
+				llid: "sc_b",
 				"kysymykset": [
 					{
-						"kysymys": "Suorapuheinen poikatyttö Venla muuttaa uudelle paikkakunnalle ja uuteen kouluun Katariina Romppaisen kirjassa. Mikä on kirjan nimi?",
-						"vastaus": /^\s*Roolipeliä\s*$/i
+						kysymys: "Is this a question?",
+						vastaus: /^\s*(yes|y|sure)(\s+it is)?\s*$/i
 					},
 					{
-						"kysymys": "Kirja myrkytetyn mutakakun tapaus kuuluu Mysteeritytöt-sarjaan. Kuka on kirjoittanut sarjan kirjat?",
-						"vastaus": /^\s*(Alex\s+Carter|Carter\,?\s+Alex)\s*$/i
-					},
-					{
-						"kysymys": "Kirjassa Päivän Harri kymmenvuotias Tiia asuu kahden isänsä kanssa. Luokkakaveri Harri on ärsyttävä, hankala ja hölmö. Tiiasta on ihmeellistä, että hän silti tykkää Harrista. Kuka kirjan on kirjoittanut?",
-						"vastaus": /^\s*(Alakoski\,?\s+Susanna|Susanna\s+Alakoski)\s*$/i
-					},
-					{
-						"kysymys": "Katso OUTI-verkkokirjastosta, kuinka monta sivua on kirjassa Varjonaamio?",
-						"vastaus": /^\s*(256|kaksisataaviisikymmentäkuusi?)\s*$/i
-					},
-					{
-						"kysymys": "Kirja Jääkarhun apuna aloittaa sarjan, jonka pääosassa seikkailee Ella. Mikä on tämän Skye Watersin kirjoittaman sarjan nimi?",
-						"vastaus": /^\s*Taikakoirat\s*$/i
-					},
-					{
-						"kysymys": "Harri ja dinot melovat seikkailuun kirjassa Harri joutuu ystäviensä kanssa melkoiseen seikkailuun. Minkä värinen mela Harrilla on kädessään kirjan kannessa?",
-						"vastaus": /^\s*punainen\s*$/i
+						kysymys: "Who invented Donald Duck?",
+						vastaus: /^\s*(Walt\s+Disney|Disney\,?\s+Walt)\s*$/i
 					},
 				]
 			},
 		]
 	},
 	{
-		"otsikko": "Toinen esimerkkiotsikko",
+		"otsikko": "Collection of practices for older children",
 		"lomakkeet": [
 			{
-				"lomake": "Esimerkkikysymyssarja A",
-				otsikko: "Esimerkkitehtäviä yläkoululaisille<br>Kysymyssarja A",
-				llid: "yk_a",
+				"lomake": "Questions for older children A",
+				otsikko: "Questions for older children<br>Series A",
+				llid: "oc_a",
 				"kysymykset": [
 					{
-						"kysymys": "Kirjassa Niskaan putoava taivas 14-vuotias Tekla saa viettää viikon ilman vanhempiaan, mutta unelmaviikosta tuleekin painajainen. Kuka kirjan on kirjoittanut?",
-						"vastaus": /^\s*(Laura\s+L[äa]hteenm[äa]ki|Lähteenmä(en|ki)\,?\s+Laura)\s*$/i
+						kysymys: "What is the first name of Donald Duck?",
+						"vastaus": /^\s*Donald\s*$/i
 					},
 					{
-						"kysymys": "Kuka on suomentanut Stephenie Meyerin kirjan Epäilys?",
-						"vastaus": /^\s*(Pirkko\s+Bistr[oö]m|Bistr[oö]m(in)?\,?\s+Pirkko)\s*$/i
-					},
-					{
-						"kysymys": "Lauren Conrad on kirjoittanut herkullisen viihdyttävän romaanin Hollywoodin kulissien takaa. Mikä on Suolaista ja makeaa -kirjan alkuperäinen englanninkielinen nimi?",
-						"vastaus": /^\s*Sugar\s+and\s+spice\s*$/i
-					},
-					{
-						"kysymys": "Sari Peltoniemen kirja Haltijan poika ammentaa aineksia kauhutarinoista ja kolttasaamelaisesta perinteestä. Mille teokselle se on jatkoa?",
-						"vastaus": /^\s*Kuulen\s+kutsun\s+mets[aä]npeittoon\s*$/i
-					},
-					{
-						"kysymys": "Mikä on Outi Pyyn muotia, ompelua ja tuunausta käsittelevän Trashion-kirjan hyllypaikka?",
-						"vastaus": /^\s*67[,.]42\s+PYY\s*$/i
-					},
-					{
-						"kysymys": "Jacinda on draki, lohikäärmeistä polveutuva ihminen. Hän joutuu jättämään heimonsa ja aloittamaan uuden elämän ihmisten parissa. Sophie Jordanin Liekki-kirjan kannessa on Jacindan kuva. Minkä väriset hiukset hänellä on?",
-						"vastaus": /^\s*Punai(nen|set)\s*$/i
+						kysymys: "Does Donald Duck have a family name?",
+						"vastaus": /^\s*(yes|duck|y)\s*$/i
 					},
 				]
 			},
@@ -436,12 +392,12 @@ siistimättä ja sellaisenaan aiemmasta versiosta */
 
 /* stubit erilaisille html-koodin pätkille */
 var indexStubs = {
-	title: "Esimerkkitehätäviä",
-	otsikko: "Esimerkkitehtäviä",
+	title: "Practices",
+	otsikko: "Practices",
 }
 var formStub = '<form onSubmit="return verifioi_ja_anna_palaute(this);">\
 <input type="text" onBlur="verifioi_ja_anna_palaute(this);" />\
-<button type="submit">Tarkista</button></form>'
+<button type="submit">Check</button></form>'
 /* stubit päättyy */
 
 function queryVars() {
@@ -577,18 +533,14 @@ function loytyykoLomake(id) {
 	</head>
 	<body onLoad="kont()" onhashchange="hashChange()">
 		<img class="alkukuva" src="omalogosi.jpg" />
-		<noscript>Javascript on välttämätön näiden tehtävien kohdalla. Et voi käyttää
-		näitä lomakkeita laitteella, joka ei tue javascriptiä tai jossa javascript on
-		kytketty pois käytöstä.</noscript>
+		<noscript>This software can not be run without Javascript.</noscript>
 		<h1 id="otsikko"></h1>
 		<div id="ohje" class="ohje">
 			<p>
-				Etsi vastaukset tehtäviin vaikka
-				<a target="_blank" href="http://fi.wikipedia.org/">Wikipediasta</a> tai
-				<a target="_blank" href="http://google.fi">Googlesta</a>.
-				Oikea vastaus näkyy
-				vihreänä, väärä punaisena. Kun kaikki kentät ovat vihreitä, tehtävä on
-				suoritettu!
+				Find answers e. g. from
+				<a target="_blank" href="http://en.wikipedia.org/">Wikipedia</a> or
+				<a target="_blank" href="https://duckduckgo.com">DuckDuckGo</a>.
+				Correct answer will be awarded with green. Wrong with red. When you get all of the boxes green, you've passed the exercise!
 			</p>
 		</div>
 		<div id="koepaikka">
@@ -596,15 +548,13 @@ function loytyykoLomake(id) {
 		<img class="loppukuva" src="oma_logosi.jpg" />
 		<div class="footer">
 			<p>
-				<!-- Muokkaa alle omat tietosi. Toivomme, että viittaat lomakkeeseemme. -->
-				Tämä lomakkeisto käyttää <a href="http://s.iki.fi/krstl">KRSTL:ää eli Kirjastoreitin sähköistä tehtävälomake</a>tta.
-				KRSTL annetaan käyttöön ja muokattavaksi, mutta mitään takuuta sen toimivuudesta tai hyödyllisyydestä emme anna. Emme myöskään vastaa mistään sen tai sen käytön aiheuttamista vahingoista.
-				Tämä sähköinen lomake toteutettiin Oulun kaupunginkirjastossa keväällä 2013. Lomake antaa palautteen käyttäjälleen oikeasta tai väärästä vastauksesta. Vastauksia ei tallenneta minnekään. Lomakkeen teknisestä puolesta vastasi Sampo Lehtinen.
+				<!-- Change your contact information bellow. -->
+				This collection of practices is made with <a href="http://s.iki.fi/krstl">KRSTL</a>.
+				KRSTL is given to be used and to be modified with no warranty what so ever.
+				This practice form software was developed in Oulu City library in spring 2013. The forms give feedback to the user. Answers are not stored anywhere. Implementation was made by Sampo Lehtinen.
 			</p>
 			<p>
-				Lisätietoja:<br />
-				Iso titteli N. M.<br />
-				Pienempi titteli A. O.<br />
+				Contacts:<br />
 			</p>
 		</div>
 	</body>

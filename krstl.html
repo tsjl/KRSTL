@@ -229,49 +229,53 @@ function naytaDebug(obj) {
 }
 
 function verifioi_ja_anna_palaute(some_obj_in_form) {
-	/* Tämä funktio hoitaa käyttäjän antamaan syötteen tarkastamisen ja
-	palautteen antamisen käyttäjälle. Voidaan kutsua mistä kohtaa formia vain.
-	Tunnistaa formin saamansa argumentin perusteella, joten this on kutsuessa luonteva.
-
-	Palauttaa aina submitin ja siten reloadin estävän falsen */
+	/* The input from user is verified and the feedback to the user is given by
+	this function. 
+	
+	As a param it needs some DOM object from the question to identify the
+	question and to be able to find and verify against the right answer
+	
+	Always returns a false so that no submit or reload is made
+	*/
 
 	/*
-	1. tarkistetaan, ollaanko form-elementissä, jos ei, etsitään se
-	2. BETTERME huomioi, form-elementistön juuri voi olla joko sisarus tai matkalla
-	kohti juurta joko suoraan tai sisaruksena. Em. ongelma ei esiinny nykyisellä
-	html:llä, mutta ratkaisu ei toimi yleisesti. Huomioi myös, että vain yksi inputti
-	per formi toimii. Käynnistys buttonilla */
+	1st find the form-element.
+	2nd BETTERME this way works with the HTML-code included but is not
+	generally working function as it might not find form from siblings.
+	Note also that this possibly do not work with multiple inputs in the
+	same form. Starts from button or hooked event.
+	*/
 	var formElementti;
-	DBS("Aloitetaan formin etsintä");
+	DBS("Starting to find the form");
 	try {
 		formElementti = haeYmparoiva("FORM", some_obj_in_form);
-		DBS("Haettu formi löytyi");
+		DBS("Found");
 	} catch (err) {
-		alert(DBS("Formin etsintä meni pieleen:\"" + err + "\""));
+		alert(DBS("Could not find the form: \"" + err + "\""));
 	}
 
-	DBS("Aloitetaan kysymyksen numeron etsintä, jotta löydetään oikea vastaus");
+	DBS("Starting to look for the number of the question to be able to find the answer.");
 	var numero;
 	try {
 		numero = haeKysymyksenNumero(formElementti);
 	} catch (err) {
-		alert(DBS("Kysymyksen numeron haussa jotain pieleen: " + err));
+		alert(DBS("Could not find the number: " + err));
 		return false;
 	}
-	DBS("Formin numeron etsintä suoritettu. Numero on " + numero);
+	DBS("Number found. It is " + numero);
 
-	/* Toivu ja ilmoita, jos vastaus puuttuu */
+	/* Check and notify if the answer can not be found */
 	if (!onkoOikeaVastausSaatavilla(numero)) return false;
 	
-	DBS("Haetaan ehdotettu vastaus");
+	DBS("Getting the answer");
 	var inputStr;
 	try { inputStr = kayttajanInputti(formElementti); }
 	catch (err) {
-		alert(DBS("Ehdotetun vastauksen haku epäonnistui: " + err));
+		alert(DBS("Answer not found: " + err));
 		return false;
 	}
 
-	DBS("Haetaan se div, jolla palaute viestitään");
+	DBS("Getting the div-element that is to be used for giving the feedback.");
 	try {
 		divvi = haeYmparoiva("DIV",formElementti);
 		DBS("Löytyi");
@@ -280,65 +284,69 @@ function verifioi_ja_anna_palaute(some_obj_in_form) {
 		return false;
 	}
 
-	/* annetun vastauksen tarkistus ja palautteen anto */
+	/* Verify the answer and give the feedback */
 	if (inputStr.length == 0) {
-		DBS("Tyhjä vastaus");
+		DBS("Empty answer");
 		divvi.className = "boksi";
 	} else if (vastaukset[numero].test(inputStr)) {
 		divvi.className = "oikea";
 		DBS("Oikein");
 		try {
-			if (divvi.getElementsByTagName("button").length != 1) throw "Nappien määrä";
+			if (divvi.getElementsByTagName("button").length != 1) throw "Amount of buttons";
 			divvi.getElementsByTagName("button")[0].disabled = true;
-			if (divvi.getElementsByTagName("input").length != 1) throw "inputtien määrä";
+			if (divvi.getElementsByTagName("input").length != 1) throw "Amount of inputs";
 			divvi.getElementsByTagName("input")[0].disabled = true;
 		} catch (err) {
-			alert(DBS("Disabloinnissa ongelma: " + err));
+			alert(DBS("Problem with disabling: " + err));
 		}
 	} else {
-		DBS("Väärä");
+		DBS("Wrong");
 		divvi.className = "vaara";
 	}
-	DBS("palautetaan submitin ja reloadin estävä false");
+	DBS("Returning the false that prevents submit and reload");
 	return false;
 }
 
 
 
 function kayttajanInputti(formElementti) {
-	/* Apufunktio, joka hakee ja palauttaa käyttäjän syötteen formin ainoasta inputista.
-	Ongelmista heitetään poikkeusta ja ilmoitetaan alertein ja lokiin */
+	/* Helpoer function that finds and returns users input from the only input in the form.
+	
+	Possible problems are handled with thrown exceptions and logged
+	*/
 	var inputStr;
 	if (formElementti.getElementsByTagName("input").length != 1) {
-		alert(DBS("Väärä määrä inputteja"));
-		throw "Väärä määrä inputteja";
+		alert(DBS("Wrong amount of inputs"));
+		throw "Wrong amount of inputs";
 	}
 	input = formElementti.getElementsByTagName("input")[0];
 	if (input.getAttribute("type")!="text") {
-		alert(DBS("Inputin tyyppi väärä"));
-		throw "Inputin tyyppi väärä";
+		alert(DBS("Wrong type of input"));
+		throw "Wrong type of input";
 	}
 
 	try {
-		DBS("Haetaan syöte");
+		DBS("Getting the input");
 		inputStr = formElementti.getElementsByTagName("input")[0].value;
-		if (typeof inputStr != "string") throw "Ei stringiä syötteenä";
+		if (typeof inputStr != "string") throw "The input is not a string";
 	} catch (err) {
-		alert(DBS("Vika syötteen haussa: " + err));
-		throw "Vika syötteen haussa";
+		alert(DBS("Problem getting the input: " + err));
+		throw "Problem getting the input";
 	}	
 	return inputStr;
 }
 
 
 function onkoOikeaVastausSaatavilla(numero) {
-	/* Apufunktio, jonka avulla varmistetaan oikean vastauksen olemassaolo */
+	/* Helper function that checks if the right answer exists.
+	returns true if found.
+	returns false if not found and logs and alerts */
 	if (vastaukset == undefined) {
-		alert(DBS("vastaukset kadoksissa"));
+		alert(DBS("Answers missing"));
 		return false;
 	}
 	if (vastaukset && vastaukset[numero] == undefined) {
-		alert(DBS("Vastaus numerolla " + numero + " puuttuu!!!"));
+		alert(DBS("Answer with number " + numero + " missing!!!"));
 		return false;
 	}
 	return true;
@@ -346,11 +354,14 @@ function onkoOikeaVastausSaatavilla(numero) {
 
 
 function haeYmparoiva(haettava, mistaHaetaan) {
-/* Apufunktio, joka ottaa parametreina tyypin, mitä haetaan ja DOM-noden, mistä
-ylöspäin puuta aletaan hakea. Huomioi, että haku suntautuu vain puussa suoraan ylöspäin.
-Ilmoittaa virhetilanteista heittämällä poikkeuksen
+/* 
+Helper function that gets a type to be found and DOM-node from where to look for upwards in the tree.
+
+Note that doesn't look from siblings or children.
+
+Notifies problems with thrown exception
 */
-	DBS("haeYmparoiva: parametrien tarkastus");
+	DBS("haeYmparoiva: checking the params");
 	
 	// parametrien tarkastukset
 	if (haettava == undefined
@@ -361,46 +372,48 @@ Ilmoittaa virhetilanteista heittämällä poikkeuksen
 			|| mistaHaetaan == null
 			|| typeof mistaHaetaan != 'object'
 			|| typeof mistaHaetaan.nodeName == "undefined") {
-		throw "vikaa parametreissa";
+		throw "haeYmparoiva: error in params";
 	}
 	
-	DBS("Parametrit kunnossa. Haku alkaa. Haettava: " + haettava +", mistaHaetaan: " + mistaHaetaan +".");
+	DBS("Params OK. Finding: " + haettava +", from: " + mistaHaetaan +".");
 	
 	var i=1;
 	while (mistaHaetaan.nodeName != haettava) {
-		if (mistaHaetaan.nodeName == "HTML") throw "porattiin html-tagiin asti, ei löytynyt";
-		if (mistaHaetaan.parentNode == undefined) throw "parentNode puuttuu.";
+		if (mistaHaetaan.nodeName == "HTML") throw "got almost to the root, not found";
+		if (mistaHaetaan.parentNode == undefined) throw "parentNode missing.";
 		mistaHaetaan = mistaHaetaan.parentNode;
-		DBS("Hakukierros " + i + " suoritettu. Ei löytynyt. mistaHaetaan: " + mistaHaetaan);
+		DBS("iteration " + i + " donw. not found. Looking from: " + mistaHaetaan);
 		i++;
 	}
-	DBS("Löytyi");	
+	DBS("Found");	
 	return mistaHaetaan;
 }
 
 function haeKysymyksenNumero(formObj) {
-	/* Etsii kysymyksen numeron oikeaa vastausta varten. Epäonnistumisesta lentää virhe */
+/* Finds the number of the question. Throws exception if not found. */
 	
-	DBS("haeKysymyksenNumero() alkaa");
+	DBS("Function haeKysymyksenNumero starts");
 	var i;
 	var formElement;
 	for (i=0; formElement = document.getElementsByTagName("form")[i]; i++) {
-		DBS("Verrataan " + i);
+		DBS("Checks " + i);
 		if (formObj == formElement) {
-			DBS("Löytyi: " + i + ".");
+			DBS("Found: " + i + ".");
 			return i;
 		}
 	}
-	DBS("Etsittyä ei löytynyt!!!");
-	throw "Etsittyä ei löytynyt!!!";
+	DBS("Did not found!!!");
+	throw "Did not found!!!";
 }
 
 /* Yläpuolinen vastaavaan merkkiin asti leikattu ja liimattu
 siistimättä ja sellaisenaan aiemmasta versiosta */
 
-/* stubit erilaisille html-koodin pätkille */
+/* stubs for different kinds of html-code snippets */
 var indexStubs = {
+	/* title */
 	title: "Practices",
+	/* header */
 	otsikko: "Practices",
 }
 var formStub = '<form onSubmit="return verifioi_ja_anna_palaute(this);">\
@@ -409,12 +422,12 @@ var formStub = '<form onSubmit="return verifioi_ja_anna_palaute(this);">\
 /* stubit päättyy */
 
 function queryVars() {
-/* palauttaa:
-0, jos on tarkoitus näyttää lista lomakkeista
-viitteen lomakkeeseen, jos on tarkoitus näyttää lomake
-korjaa osoitekentän ja latauttaa listan, jos hashiä ei tunnisteta */
+/* returns:
+0, if meant to show a list of questinaries
+A reference to the questionary if it is to be shown
+Fixes the URL if anchor is unknown */
 	
-	// napataan urlista hash-str ilman #-merkkiä
+	// Get the anchor from the url without hash-sign
 	var queryHash = window.location.hash.substring(1)
 	var lomake
 	if (queryHash.length == 0) { return 0 }
@@ -424,39 +437,40 @@ korjaa osoitekentän ja latauttaa listan, jos hashiä ei tunnisteta */
 			// viitattu lomake löytyy
 			return lomake
 		}
-		// hashissa jotain häröä, toivutaan
+		// Unknown anchor
 		window.location.hash=""
 		return 0
 	}
 }
 
 function kont() {
+/* A Helper function that determines if address is changed and reloads the DOM accordingly. Started by hooks */
 	oldHash = window.location.hash
 	var action = queryVars()
 	if (action==0) {
 		naytaIndeksi()
 	} else {
-		// vastuu epäkelvoista lomaketunnisteista on queryVars()illa
+		// Function queryVars is responsible for handling bad anchors
 		naytaLomake(action)
 	}
 }
 
 function naytaLomake(lomakeRef) {
+/* A function that shows questionary */
 	if ( lomakeRef.otsikko ) {
 		document.title = lomakeRef.otsikko.replace("<br>",", ")
 		document.getElementById("otsikko").innerHTML = lomakeRef.otsikko
 	} else {
-		var viesti =  "Lomakkeen sisällön otsikko puuttuu tai on tyhjä, lomakkeen tunniste: " + lomakeRef.llid
+		var viesti =  "The header of the questionary is missing or empty. ID of the questionary is: " + lomakeRef.llid
 		document.title = viesti
 		document.getElementById("otsikko").innerHTML = viesti
 	}
-	// näytä lomakkeen täytön ohje
+	// Show the howto
 	document.getElementById("ohje").style.display="block"
 	var koepaikka = document.getElementById("koepaikka")
-	// tyhjennä lomakelista tai ed näytetty lomake
+	// Clear the list of questionaries or the last shown questionary
 	koepaikka.innerHTML=""
-	// luodaan kysymykset näytölle
-	// alustetaan paikka vastauksille
+	// Creating the questions and the place for those
 	vastaukset = new Array()
 	for (kv in lomakeRef.kysymykset) {
 		naytaKysymys(lomakeRef.kysymykset[kv], koepaikka)
@@ -473,21 +487,23 @@ function naytaKysymys(kysymysRef, minneDOM) {
 }
 			
 function hashChange() {
-	// BETTERME ehto taitaa olla tarpeeton
+	// A helper function that is used to notice if address is changed
+	// BETTERME the conditionally may be uncessery
 	if ( oldHash != window.location.hash ) { kont()	}
 }
 			
 function naytaIndeksi() {
-	// Tyhjennä lomakelistan paikka
+	/* A function that shows the list of questionaries */
+	// Clear the place
 	document.getElementById('koepaikka').innerHTML=""
-	// aseta otsikot
+	// Set the title and header
 	document.title = indexStubs.title
 	document.getElementById("otsikko").innerHTML = indexStubs.otsikko
-	// piilota ohje
+	// Hide the howto
 	document.getElementById("ohje").style.display="none"
-	// loopataan otsikot
+	// Loop the categories of the questionaries
 	for (var i = 0; i < otsikot.length; i++) {
-		// yhden otsikon käsittelevä looppi
+		// Loop one category
 		var obj = otsikot[i]
 		var otsikkoInnerHTML = ""
 		var otsikkoInnerHTMLend = ""
@@ -498,7 +514,7 @@ function naytaIndeksi() {
 					otsikkoInnerHTMLend = "</ul></p>"
 					break
 				case "lomakkeet":
-					// listataan otsikon alle kuuluvat lomakkeet
+					// list the questionary belonging to the category
 					var lomakkeet = obj[key]
 					for (var li in lomakkeet) {
 						var lomake = lomakkeet[li]
@@ -510,11 +526,11 @@ function naytaIndeksi() {
 					}
 					break
 				default:
-					alert("Väärin nimettyä sisältöä, key: " + key)
-					otsikkoInnerHTML += "<li>Virheellistä sisältöä: " + key
+					alert("Wrongly named ingredients, key: " + key)
+					otsikkoInnerHTML += "<li>Wrong things: " + key
 			}
 		}
-		// luodaan divi otsikolle, asetetaan sille sisältö ja laitetaan tulos näkyville
+		// Create the div for category, set things inside it and display the result
 		var otsikkoDiv = document.createElement('div')
 		otsikkoDiv.className = "ohje"
 		otsikkoDiv.innerHTML = otsikkoInnerHTML + otsikkoInnerHTMLend
@@ -523,10 +539,10 @@ function naytaIndeksi() {
 }
 
 function loytyykoLomake(id) {
-	/* tutkii, löytyykö viitattu lomake
-	Palauttaa:
-	false, jos ei löydy
-	lomakeviitteen, jos löytyy */
+	/* Checks if referenced questionary exists.
+	Returns:
+	false, if not found
+	Reference if found */
 	for (var otsikko in otsikot) {
 		var lomakkeet = otsikot[otsikko].lomakkeet
 		for (var lomake in lomakkeet) {
